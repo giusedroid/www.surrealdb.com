@@ -5,9 +5,51 @@
 </Crumb>
 
 <Layout::Text text-l text-f>
-	<h2><Devicon @size="50" @type="amazon" /> Deploy on Amazon Web Services</h2>
-	<p>This article has not been released yet. We hope to release this soon.</p>
-	<p>To contribute to this documentation, <Link @link={{github}}>edit this file on GitHub</Link>.</p>
+	<h2><Devicon @size="50" @type="amazon" /> Deploy on Amazon Elastic Kubernetes Service (Amazon EKS)</h2>
+	<h3>What is Amazon EKS?</h3>
+	<p>
+		<Link @link="https://docs.aws.amazon.com/eks/">Amazon Elastic Kubernetes Service (Amazon EKS)</Link> is a managed service that eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).
+		<br />This article will guide you through setting up a highly available SurrealDB cluster backed by <Link @link="https://tikv.org/">TiKV</Link> on Amazon EKS.
+	</p>
+
+	<h3>Prerequisites</h3>
+	<p>
+		In order for you to complete this tutorial you'll need
+		<ul>
+			<li> an account on <Link @link="">Amazon Web Services (AWS)</Link></li>
+			<li> necessary Amazon Identity and Access Management (Amazon IAM) permissions to programmatically create resources in your account </li>
+			<li> familiarity with the usage of an IDE, command line interface and tools such as <code>kubectl</code></li>
+		</ul>
+	</p>
+
+	<blockquote Red text="Cost Considerations"> 
+		Provisioning this tutorail environment in your AWS account will create resources and <b>there will be cost associated with them.</b> The cleanup section provides a guide to remove them, preventing further charges. <br />
+		This tutorial was tested in <code>eu-west-1</code> (Ireland region) and it follows TiKV best practices for scalability and high availability. It will provision up to 12 Amazon Elastic Compute Cloud (Amazon EC2) instances, several Amazon Elastic Block Storage (Amazon EBS) drives, and up to three Amazon Elastic Loadbalancers (Amazon ELB).<br />
+		The forecasted cost to run this tutorial is of <b>$5 USD per hour</b>.
+	</blockquote>
+
+	<h3>AWS Account Setup</h3>
+	This section outlines how to set up the environment to run this tutorial in your own AWS account. These instructions have been tested in <code>eu-west-1</code>. You may need to make some modifications if you're deploying in a different AWS region.
+	<br />
+	<h4>Open CloudShell</h4>
+	The first step is to create an IDE with a CloudFormation template AWS provides. The easiest way to do this is using AWS CloudShell in the account you will be running the tutorial.
+	<br />
+	Open CloudShell with the link below or following <Link @link="https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#launch-region-shell">this documentation</Link>
+	<br />
+	<Link @link="https://console.aws.amazon.com/cloudshell/home"> https://console.aws.amazon.com/cloudshell/home </Link>
+
+	<blockquote Green text="PRO TIP"> 
+		When using the link above, make sure the AWS console has opened in the region that you wish to run this tutorial in.
+ 	</blockquote>
+
+	<h4>Deploy your IDE (Cloud9)</h4>
+	Once CloudShell is available and you have verified you're in region <code>eu-west-1</code>, copy and paste the following commands.
+	<Code @name="docs/deployment/amazon/00-deploy-ide.sh" text="Deploy Cloud9 IDE" />
+	With these instructions, you're downloading and deploying the IDE infrastructure described in a CloudFormation template AWS provides. <br />
+	The CloudFormation stack will take roughly 5 minutes to deploy, and once completed you can retrieve the URL for the Cloud9 IDE like so:
+	<Code @name="docs/deployment/amazon/00-deploy-ide-output.sh" text="Deploy Cloud9 IDE" />
+
+	
 </Layout::Text>
 
 <Layout::Gap small />
