@@ -19,6 +19,9 @@
 			<li> an account on <Link @link="https://aws.amazon.com/">Amazon Web Services (AWS)</Link></li>
 			<li> necessary <Link @link="https://aws.amazon.com/iam/">Amazon Identity and Access Management (Amazon IAM) </Link> permissions to programmatically create resources in your account </li>
 			<li> familiarity with the usage of an IDE, command line interface and tools such as <code>kubectl</code></li>
+			<li> AWS cli is <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">installed</Link> and <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html">configured</Link> with your user's credentails</li>
+			<li> <code>kubectl</code>. Installation instructions <Link @link="https://kubernetes.io/docs/tasks/tools/#kubectl">here</Link></li>
+			<li> <code>eksctl</code>. Installation instructions <Link @link="https://eksctl.io/introduction/#installation">here</Link>.</li>
 		</ul>
 
 		<blockquote Red text="Cost Considerations"> 
@@ -28,49 +31,17 @@
 		</blockquote>
 	</p>
 
-	<h3>AWS Account Setup</h3>
-	<p>
-		This section outlines how to set up the environment to run this tutorial in your own AWS account. These instructions have been tested in <code>eu-west-1</code>. You may need to make some modifications if you're deploying in a different AWS region.
-		<br /><br />
-	</p>
-
-	<h4>Open CloudShell</h4>
-	<p>
-		The first step is to create an IDE with a <Link @link="https://aws.amazon.com/cloudformation/">CloudFormation</Link> template AWS provides. The easiest way to do this is using <Link @link="https://aws.amazon.com/cloudshell/">AWS CloudShell</Link> in the account you will be running the tutorial.
-		Open CloudShell with the link below or following <Link @link="https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#launch-region-shell">this documentation</Link>
-		<br /><br />
-		<Link @link="https://console.aws.amazon.com/cloudshell/home"> https://console.aws.amazon.com/cloudshell/home </Link>
-		<br /><br />
-		<blockquote Green text="PRO TIP"> 
-			When using the link above, make sure the AWS console has opened in the region that you wish to run this tutorial in.
-		</blockquote>
-	</p>
-	<h4>Deploy your IDE (<Link @link="https://aws.amazon.com/pm/cloud9/">Cloud9</Link>)</h4>
-	<p>
-		Once CloudShell is available and you have verified you're in region <code>eu-west-1</code>, copy and paste the following commands.
-		<Code @name="docs/deployment/amazon/00-deploy-ide.sh" text="Deploy Cloud9 IDE" />
-		With these instructions, you're downloading and deploying the IDE infrastructure described in a CloudFormation template AWS provides. <br />
-		The CloudFormation stack will take roughly 5 minutes to deploy, and once completed you can retrieve the URL for the Cloud9 IDE like so:
-		<Code @name="docs/deployment/amazon/00-deploy-ide-output.sh" text="Deploy Cloud9 IDE" />
-		<br />
-		Open this URL in a web browser to access the IDE. 
-	</p>
-	<img src="https://www.eksworkshop.com/assets/images/cloud9-splash-9c66abadb298f6882ada50005112bea9.png" />
-	<p>
-		You can now close CloudShell, all further commands will be run in the terminal section at the bottom of the Cloud9 IDE. 
-	</p>
-
 	<h3>Building an EKS Cluster</h3>
 	<p>
 		This section outlines how to build a cluster by using the <Link @link="https://eksctl.io/"><code>eksctl</code></Link> tool.
 		<br />
-		The eksctl utility has been pre-installed in your Cloud9 IDE for your convenience. The following is the configuration that will be used to build the cluster:
+		The following is the configuration that will be used to build the cluster:
 	</p>
 	<Code @name="docs/deployment/amazon/surrealdb-cluster.yml" text="surreadb cluster config" />
 	<p>
 		Based on this configuration eksctl will:
 		<ul>
-			<li>Create a VPC across three availability zones</li>
+			<li>Create a <Link @link="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">VPC</Link> across three availability zones</li>
 			<li>Create an EKS cluster</li>
 			<li>Create an <Link @link="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html">IAM OIDC</Link> provider</li>
 			<li>Create the necessary node groups for TiKV according to <Link @link="https://docs.pingcap.com/tidb-in-kubernetes/stable/deploy-on-aws-eks">best practices</Link></li>
@@ -85,16 +56,23 @@
 	</p>
 
 	<h3>Deploy TiKV</h3>
+	<p>The following instructions will install <code>TiKV</code> operators in your EKS cluster.</p>
 	<Code @name="docs/deployment/amazon/02-tikv-ops.sh" text="deploy TIKV Operator" />
 
 	<h3>Create TiKV Cluster</h3>
+	<p>The following instructions will create a <code>TiKV</code> cluster.</p>
 	<Code @name="docs/deployment/amazon/03-create-tikv-cluster.sh" text="create TIKV Cluster" />
 
 	<h3>Install ALB Controller</h3>
+	<p>The following instructions will install the AWS Load Balancer Controller.</p>
+	<p>The AWS Load Balancer Controller provisions and manages the necessary AWS resources when Kubernetes creates an <code>Ingress</code> or a <code>LoadBalancer</code></p>
+    <p>
+        Formerly known as AWS ALB Ingress Controller, it's an open-source project on <Link @link="https://github.com/kubernetes-sigs/aws-load-balancer-controller">GitHub</Link>.
+    </p> 
 	<Code @name="docs/deployment/amazon/04-install-alb-controller.sh" text="install alb controller" />
 
 	<h3>Install SurrealDB</h3>
-	<p>The following script will install SurrealDB on your EKS cluster backed by TiKV with a public enpoint exposed via an Application Load Balancer (ALB)</p>
+	<p>The following script will install SurrealDB on your EKS cluster backed by TiKV with a public endpoint exposed via an Application Load Balancer (ALB)</p>
 	<Code @name="docs/deployment/amazon/05-install-surreal.sh" text="install surrealdb" />
 
 	<h3>Test your SurrealDB Installation</h3>
@@ -108,6 +86,11 @@
 		Before deleting the Cloud9 envirnment, clean up the cluster with the following commands.<br />
 		<Code @name="docs/deployment/amazon/99-cleanup.sh" text="cleanup" />
 	</p>
+	<p> The default cleanup behaviour is to preserve resources such as EBS volumes that were previously attached to your cluster. If this is not what you want, and in order to prevent you from incurring
+		in additional charges related to the usage of these block storage devices, <Link @link="https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1#Volumes">navigate to the AWS console</Link> and manually delete all volumes that were attached to your cluster, as shown in figure.
+	</p>
+
+	<img src="/static/img/docs/deployment/amazon/delete-volumes.png" w-100 />
 
 </Layout::Text>
 

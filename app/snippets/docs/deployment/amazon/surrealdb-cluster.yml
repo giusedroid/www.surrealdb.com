@@ -1,6 +1,5 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
-
 metadata:
   name: ${CLUSTER_NAME}
   region: ${AWS_REGION}
@@ -8,16 +7,13 @@ metadata:
   tags:
     karpenter.sh/discovery: ${CLUSTER_NAME}
     env: ${CLUSTER_NAME}
-
 iam:
   withOIDC: true
-
 vpc:
-  cidr: 10.42.0.0/16
+  cidr: 10.0.0.0/16
   clusterEndpoints:
     privateAccess: true
     publicAccess: true
-
 addons:
 - name: vpc-cni
   resolveConflicts: overwrite
@@ -25,7 +21,7 @@ addons:
   wellKnownPolicies:      # add IAM and service account
     ebsCSIController: true
 
-nodeGroups:
+managedNodeGroups:
 
   - name: admin
     desiredCapacity: 1
@@ -41,7 +37,9 @@ nodeGroups:
     labels:
       dedicated: tidb
     taints:
-      dedicated: tidb:NoSchedule
+    - key: "dedicated"
+      value: "tidb"
+      effect: NoSchedule
 
   - name: tidb-1b
     desiredCapacity: 0
@@ -51,7 +49,9 @@ nodeGroups:
     labels:
       dedicated: tidb
     taints:
-      dedicated: tidb:NoSchedule
+    - key: "dedicated"
+      value: "tidb"
+      effect: NoSchedule
 
   - name: tidb-1c
     desiredCapacity: 1
@@ -61,7 +61,9 @@ nodeGroups:
     labels:
       dedicated: tidb
     taints:
-      dedicated: tidb:NoSchedule
+    - key: "dedicated"
+      value: "tidb"
+      effect: NoSchedule
 
   - name: pd-1a
     desiredCapacity: 1
@@ -71,7 +73,9 @@ nodeGroups:
     labels:
       dedicated: pd
     taints:
-      dedicated: pd:NoSchedule
+    - key: "dedicated"
+      value: "pd"
+      effect: NoSchedule
 
   - name: pd-1b
     desiredCapacity: 1
@@ -81,7 +85,9 @@ nodeGroups:
     labels:
       dedicated: pd
     taints:
-      dedicated: pd:NoSchedule
+    - key: "dedicated"
+      value: "pd"
+      effect: NoSchedule
 
   - name: pd-1c
     desiredCapacity: 1
@@ -91,7 +97,9 @@ nodeGroups:
     labels:
       dedicated: pd
     taints:
-      dedicated: pd:NoSchedule
+    - key: "dedicated"
+      value: "pd"
+      effect: NoSchedule
 
   - name: tikv-1a
     desiredCapacity: 1
@@ -101,7 +109,10 @@ nodeGroups:
     labels:
       dedicated: tikv
     taints:
-      dedicated: tikv:NoSchedule
+
+    - key: "dedicated"
+      value: "tikv"
+      effect: NoSchedule
 
   - name: tikv-1b
     desiredCapacity: 1
@@ -111,7 +122,9 @@ nodeGroups:
     labels:
       dedicated: tikv
     taints:
-      dedicated: tikv:NoSchedule
+    - key: "dedicated"
+      value: "tikv"
+      effect: NoSchedule
 
   - name: tikv-1c
     desiredCapacity: 1
@@ -121,7 +134,9 @@ nodeGroups:
     labels:
       dedicated: tikv
     taints:
-      dedicated: tikv:NoSchedule
+    - key: "dedicated"
+      value: "tikv"
+      effect: NoSchedule
 
   - name: default
     desiredCapacity: 2
