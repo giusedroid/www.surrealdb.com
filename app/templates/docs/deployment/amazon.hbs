@@ -77,13 +77,13 @@
 
 	<h3>Test your SurrealDB Installation</h3>
 	<p>You can get the endpoint to use with your surrealdb client as follows</p>
-	<Code @name="docs/deployment/amazon/06-get-endpoint.sh" text="create TIKV Cluster" />
+	<Code @name="docs/deployment/amazon/06-get-endpoint.sh" text="Test installation" />
 	<p>Test your connection with the following command</p>
 	<Code @name="docs/deployment/amazon/07-connect-to-surrealdb.sh" text="connection test" />
 
 	<h3>Cleanup</h3>
 	<p>
-		Before deleting the Cloud9 envirnment, clean up the cluster with the following commands.<br />
+		You can clean up the cluster with the following commands.<br />
 		<Code @name="docs/deployment/amazon/99-cleanup.sh" text="cleanup" />
 	</p>
 	<p> The default cleanup behaviour is to preserve resources such as EBS volumes that were previously attached to your cluster. If this is not what you want, and in order to prevent you from incurring

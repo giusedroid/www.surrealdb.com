@@ -1,2 +1,2 @@
-surreal sql -e $SURREALDB_ENDPOINT
+surreal sql -e https://$SURREALDB_ENDPOINT
 >
