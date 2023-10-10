@@ -23,6 +23,7 @@ module.exports = function (defaults) {
 				'toml',
 				'sql',
 				'yaml',
+				'csharp',
 			],
 			copyToClipboard: true,
 		},

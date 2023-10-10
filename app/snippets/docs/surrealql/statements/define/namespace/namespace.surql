@@ -1,2 +1,2 @@
--- Namepace for Abcum Ltd.
+-- Namespace for Abcum Ltd.
 DEFINE NAMESPACE abcum;

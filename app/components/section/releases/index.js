@@ -400,7 +400,7 @@ export default class extends Component {
 							'Allow parameters in <code>LIMIT</code> and <code>START</code> clauses in <code>SELECT</code> statements',
 							'Add <code>parse::url::scheme()</code> function for parsing a url protocol',
 							'Add <code>time::format()</code> function for formatting of datetimes',
-							'Add support for <code>FETCH</code> cluases in SQL <code>RETURN</code> statements',
+							'Add support for <code>FETCH</code> clauses in SQL <code>RETURN</code> statements',
 							'Add <code>rand::uuid::v4()</code> and <code>rand::uuid::v7()</code> functions for creating different UUID types',
 							'Add Null Coalescing Operator and Ternary Conditional Operator',
 							'Enable current input to be retrieved in <code>ON DUPLICATE KEY UPDATE</code> clauses with <code>$input</code> parameter',

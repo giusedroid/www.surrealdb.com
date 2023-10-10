@@ -13,7 +13,7 @@
 <Layout::Text text-l text-f>
 	<h3>Is SurrealDB ready for production use?</h3>
 	<p>
-		SurrealDB is currently in beta. There are a number of features and performance improvements being worked on before a <code>1.0.0</code> production-ready release.
+		SurrealDB is currently in version <code>1.0.0</code> which is a stable version. There are a number of features and performance improvements being worked on before a production-ready release.
 		<br><br>
 		<ol>
 			<li>You can already define indexes for unique record constraints, but indexes are currently not yet used when filtering on a table. As a result, queries which filter on tables with a large number of records will not be performant. This does not affect graph queries, or time-series record ranges. When completed, this will have a major performance impact to query speed on table queries. In the meantime, you can use aggregate views to improve single-table queries.</li>
@@ -29,6 +29,16 @@
 <Layout::Text text-l text-f>
 	<h3>Where can I find the latest features?</h3>
 	<p>Once features are released, we document them in our <Link @link="releases">release notes</Link> and on our <Link @link="features">features page</Link>, which is a great place to understand capabilities.</p>
+	<p> You can also check some of our new features for <code>1.0.0</code>:
+		<br>
+		<ul>
+			<li> <Link @link="lq"> SurrealLQ </Link></li>
+			<li><Link @link="ix"> SurrealIX </Link></li>
+			<li><Link @link="cf"> SurrealCF </Link></li>
+			<li><Link @link="ml"> SurrealML </Link></li>
+		</ul>
+
+	</p>
 </Layout::Text>
 
 <Layout::Gap mini />

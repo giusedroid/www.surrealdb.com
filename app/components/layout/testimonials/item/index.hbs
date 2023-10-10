@@ -8,13 +8,19 @@
 		<div>
 
 			<div>
-				{{#if @name}}<name>{{@name}}</name>{{/if}}
-				<bull>&bull;</bull>
-				{{#if @date}}<date>{{date-format @date "MMM DD"}}</date>{{/if}}
+				<text>{{@text}}</text>
 			</div>
 
 			<div>
-				<text>{{@text}}</text>
+				<name>{{@name}}</name>
+			</div>
+
+			<div>
+				<user>{{@user}}</user>
+			</div>
+
+			<div>
+				<img src={{@image}}>
 			</div>
 
 		</div>

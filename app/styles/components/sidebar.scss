@@ -108,6 +108,10 @@ sidebar {
 						border-bottom:2px solid var(--hover-color);
 					}
 
+					&[selected] {
+						border-bottom:2px solid var(--hover-color);
+					}
+
 					&[button] {
 						width:100%;
 						display:flex;
