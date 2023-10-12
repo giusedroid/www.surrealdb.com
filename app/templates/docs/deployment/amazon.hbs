@@ -9,33 +9,31 @@
 	<h3>What is Amazon EKS?</h3>
 	<p>
 		<Link @link="https://docs.aws.amazon.com/eks/">Amazon Elastic Kubernetes Service (Amazon EKS)</Link> is a managed service that eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).
-		<br />This article will guide you through setting up a highly available SurrealDB cluster backed by <Link @link="https://tikv.org/">TiKV</Link> on Amazon EKS.
+		<Layout::Gap tiny />
+	This deployment guide covers setting up a highly available SurrealDB cluster backed by <Link @link="https://tikv.org/">TiKV</Link> on Amazon EKS.
 	</p>
 
-	<h3>Prerequisites</h3>
-	<p>
-		In order for you to complete this tutorial you'll need
+	<h3>Requirements</h3>
+	<p>For this guide you'll need: </p>
 		<ul>
-			<li> an account on <Link @link="https://aws.amazon.com/">Amazon Web Services (AWS)</Link></li>
-			<li> necessary <Link @link="https://aws.amazon.com/iam/">Amazon Identity and Access Management (Amazon IAM) </Link> permissions to programmatically create resources in your account </li>
-			<li> familiarity with the usage of an IDE, command line interface and tools such as <code>kubectl</code></li>
-			<li> AWS cli is <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">installed</Link> and <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html">configured</Link> with your user's credentails</li>
-			<li> <code>kubectl</code>. Installation instructions <Link @link="https://kubernetes.io/docs/tasks/tools/#kubectl">here</Link></li>
-			<li> <code>eksctl</code>. Installation instructions <Link @link="https://eksctl.io/installation/">here</Link>.</li>
+			<li> An account on <Link @link="https://aws.amazon.com/">Amazon Web Services (AWS)</Link> and also the necessary <Link @link="https://aws.amazon.com/iam/">Amazon Identity and Access Management (Amazon IAM) </Link> permissions to programmatically create resources in your account.</li>
+			<li> <Link @link="https://kubernetes.io/docs/tasks/tools/install-kubectl/"><code>kubectl</code></Link> To manage the Kubernetes cluster.</li>
+			<li> AWS CLI <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">installed</Link> and <Link @link="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html">configured</Link> with your user's credentails</li>
+			<li> <Link @link="https://eksctl.io/installation/"><code>eksctl</code></Link> installed</li>
 		</ul>
 
-		<blockquote Red text="Cost Considerations"> 
-			Provisioning this tutorail environment in your AWS account will create resources and <em>there will be cost associated with them.</em> The cleanup section provides a guide to remove them, preventing further charges.
-			This tutorial was tested in <code>eu-west-1</code> (Ireland region) and it follows TiKV best practices for scalability and high availability. It will provision up to 12 <Link @link="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (Amazon EC2)</Link> instances, several <Link @link="https://aws.amazon.com/ebs/">Amazon Elastic Block Storage (Amazon EBS)</Link> drives, and up to three <Link @link="https://aws.amazon.com/elasticloadbalancing/">Amazon Elastic Loadbalancers (Amazon ELB)</Link>.
-			The forecasted cost to run this tutorial is of <em>$5 USD per hour</em>.
+		<blockquote Red text="Cost Considerations">
+			Provisioning the environment in your AWS account will create resources and there will be cost associated with them. The cleanup section provides a guide to remove them, preventing further charges.
 		</blockquote>
-	</p>
+
+		<blockquote Red text="Note">
+			This guide was tested in <code>eu-west-1</code> (Ireland region) and it follows TiKV best practices for scalability and high availability. It will provision up to 12 <Link @link="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (Amazon EC2)</Link> instances, several <Link @link="https://aws.amazon.com/ebs/">Amazon Elastic Block Storage (Amazon EBS)</Link> drives, and up to three <Link @link="https://aws.amazon.com/elasticloadbalancing/">Amazon Elastic Loadbalancers (Amazon ELB)</Link>.
+			The forecasted cost to run this guide is of <em>$5 USD per hour</em>.
+		</blockquote>
 
 	<h3>Building an EKS Cluster</h3>
 	<p>
-		This section outlines how to build a cluster by using the <Link @link="https://eksctl.io/"><code>eksctl</code></Link> tool.
-		<br />
-		The following is the configuration that will be used to build the cluster:
+		This section outlines how to build a cluster by using the <Link @link="https://eksctl.io/"><code>eksctl</code></Link> tool. The following is the configuration that will be used to build the cluster:
 	</p>
 	<Code @name="docs/deployment/amazon/surrealdb-cluster.yml" text="surreadb cluster config" />
 	<p>
@@ -49,10 +47,13 @@
 			<li>Configure the <Link @link="https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html">EBS addon</Link> to manage storage volumes</li>
 		</ul>
 		<br />
-		Save the above configuration in a file named <code>surrealdb-cluster.yml</code> and apply the configuration file like so: <br />
+		Save the above configuration in a file named <code>surrealdb-cluster.yml</code> and apply the configuration file like so:
+		<Layout::Gap tiny />
 		<Code @name="docs/deployment/amazon/01-deploy-cluster.sh" text="deploy eks cluster"/>
 		<br />
-		The deployment of the cluster should take about 30 minutes.
+		<blockquote Yellow text="Note">
+			The deployment of the cluster should take about 30 minutes.
+		</blockquote>
 	</p>
 
 	<h3>Deploy TiKV</h3>
@@ -68,7 +69,7 @@
 	<p>The AWS Load Balancer Controller provisions and manages the necessary AWS resources when Kubernetes creates an <code>Ingress</code> or a <code>LoadBalancer</code></p>
     <p>
         Formerly known as AWS ALB Ingress Controller, it's an open-source project on <Link @link="https://github.com/kubernetes-sigs/aws-load-balancer-controller">GitHub</Link>.
-    </p> 
+    </p>
 	<Code @name="docs/deployment/amazon/04-install-alb-controller.sh" text="install alb controller" />
 
 	<h3>Install SurrealDB</h3>
