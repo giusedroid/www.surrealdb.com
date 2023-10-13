@@ -1,15 +1,15 @@
 <Meta::Tags>
 	<title>SurrealDB | CF | The ultimate multi-model database</title>
 	<meta name="title" property="og:title" content="SurrealDB | CF">
-	<meta name="description" content="Change Feeds enable SurrealDB to play a role within within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms.">
+	<meta name="description" content="Change Feeds enable SurrealDB to play a role within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms.">
 </Meta::Tags>
 
 <Layout::Hero cf>
 	<Layout::Text text-l>
-		<img src="/static/img/cf.png" width="150" />
+		<img src="/static/img/products/cf.png" width="150" />
 		<br><br>
 		<h1>SurrealCF</h1>
-		<h2>Change Feeds enable SurrealDB to play a role within within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms.</h2>
+		<h2>Change Feeds enable SurrealDB to play a role within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms.</h2>
 		<Button::Thicker @link="features">
 			<i class="fal fa-list-check"></i> <span>View all features</span>
 		</Button::Thicker>
@@ -23,11 +23,32 @@
 
 	<Layout::Gap large />
 
+	<Layout::Videos cols-2-to-1>
+		<Layout::Videos::Item text-l
+			@image="/static/img/products/videos/yusuke.jpg"
+			@video="https://player.vimeo.com/video/867530652"
+			@title="Understanding SurrealCF"
+			@people={{array
+				"Yusuke Kuoka - Senior Software Engineer, SurrealDB"
+			}}
+		/>
+		<Layout::Videos::Item text-l
+			@image="/static/img/products/videos/lizzie.jpg"
+			@video="https://player.vimeo.com/video/867531445"
+			@title="SurrealCF for users"
+			@people={{array
+				"Lizzie Holmes - Head of Experiences, SurrealDB"
+			}}
+		/>
+	</Layout::Videos>
+
+	<Layout::Gap large />
+
 	<Layout::Boxes cols-2-to-1>
-		<Layout::Boxes::Item text-l light @title="SurrealDB with Change Data Capture functionality" @image="/static/img/products/cdc.png" @text="Change Feeds enable SurrealDB to play a role within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms." />
-		<Layout::Boxes::Item text-l light @title="Designed for long-running tasks and indexes" @image="/static/img/products/asynchronous.png" @text="Internally, in the future, Change Feeds will enable SurrealDB to handle long-running tasks, including the building and re-building of unique, full-text-search, and vector indexes, asynchronously, without any downtime or blocking." />
-		<Layout::Boxes::Item text-l light @title="Retrieve all changes to data over time" @image="/static/img/products/immutable.png" @text="SurrealDB tracks all of the changes made to table data by any user, whether running as an embedded or single-node instance, or if running in a distributed cluster with multiple SurrealDB nodes." />
-		<Layout::Boxes::Item text-l light @title="Suitable for a range of scenarios and integrations" @image="/static/img/products/sdbserver.png" @text="Change Feeds enable data integrity, data backup, and consistency across systems and environments. From ingesting data into third-party systems, archiving data to object storage for backup or analysis purposes, or for real-time synchronisation with other platforms, Change Feeds are a core feature for the enterprise." />
+		<Layout::Boxes::Item text-l light @title="SurrealDB with Change Data Capture functionality" @image="/static/img/products/icons/cdc.jpg" @text="Change Feeds enable SurrealDB to play a role within the wider ecosystem of enterprise, cloud, or micro-service based platforms, giving users the ability to retrieve and sync changes from SurrealDB to external systems and platforms." />
+		<Layout::Boxes::Item text-l light @title="Designed for long-running tasks and indexes" @image="/static/img/products/icons/asynchronous.jpg" @text="Internally, in the future, Change Feeds will enable SurrealDB to handle long-running tasks, including the building and re-building of unique, full-text-search, and vector indexes, asynchronously, without any downtime or blocking." />
+		<Layout::Boxes::Item text-l light @title="Retrieve all changes to data over time" @image="/static/img/products/icons/immutable.jpg" @text="SurrealDB tracks all of the changes made to table data by any user, whether running as an embedded or single-node instance, or if running in a distributed cluster with multiple SurrealDB nodes." />
+		<Layout::Boxes::Item text-l light @title="Suitable for a range of scenarios and integrations" @image="/static/img/products/icons/sdbserver.jpg" @text="Change Feeds enable data integrity, data backup, and consistency across systems and environments. From ingesting data into third-party systems, archiving data to object storage for backup or analysis purposes, or for real-time synchronisation with other platforms, Change Feeds are a core feature for the enterprise." />
 	</Layout::Boxes>
 
 	<Layout::Gap large />
@@ -46,16 +67,16 @@
 
 	<Layout::Boxes cols-3-to-2-to-1>
 		<Link @link="docs.surrealql" mini>
-			<Layout::Boxes::Item transparent @image="/static/img/ql.png" @text="The query language in SurrealDB looks and works similarly to traditional-SQL, but allows for querying over time-series and connected graph data. SurrealQL is an advanced query language, with programming language functionality, that allows developers or data analysts to work with SurrealDB in the ways they choose." hover />
+			<Layout::Boxes::Item transparent @image="/static/img/products/ql.png" @text="The query language in SurrealDB looks and works similarly to traditional-SQL, but allows for querying over time-series and connected graph data. SurrealQL is an advanced query language, with programming language functionality, that allows developers or data analysts to work with SurrealDB in the ways they choose." hover />
 		</Link>
 		<Link @link="lq" mini>
-			<Layout::Boxes::Item transparent @image="/static/img/lq.png" @text="Live Queries in SurrealDB enable a simple yet seamless way of building modern, responsive applications, whether connecting to SurrealDB as a traditional backend database, or when connecting directly to the database from the frontend." hover />
+			<Layout::Boxes::Item transparent @image="/static/img/products/lq.png" @text="Live Queries in SurrealDB enable a simple yet seamless way of building modern, responsive applications, whether connecting to SurrealDB as a traditional backend database, or when connecting directly to the database from the frontend." hover />
 		</Link>
 		<Link @link="ix" mini>
-			<Layout::Boxes::Item transparent @image="/static/img/ix.png" @text="SurrealDB is designed for building applications of any size - and for that, query performance, and improved data analysis workloads are key. With SurrealDB secondary indexes, you can now index data using traditional indexes, full-text search indexing, and vector-embedding search for artificial intelligence use cases." hover />
+			<Layout::Boxes::Item transparent @image="/static/img/products/ix.png" @text="SurrealDB is designed for building applications of any size - and for that, query performance, and improved data analysis workloads are key. With SurrealDB secondary indexes, you can now index data using traditional indexes, full-text search indexing, and vector-embedding search for artificial intelligence use cases." hover />
 		</Link>
 		<Link @link="ml" mini>
-			<Layout::Boxes::Item transparent @image="/static/img/ml.png" @text="SurrealML enables machine learning models to be greatly simplified, ensuring reproducibility and consistency in machine learning pipelines. Running on our Rust engine, models can be built in Python, and imported in to SurrealDB for inference within the database runtime." hover />
+			<Layout::Boxes::Item transparent @image="/static/img/products/ml.png" @text="SurrealML enables machine learning models to be greatly simplified, ensuring reproducibility and consistency in machine learning pipelines. Running on our Rust engine, models can be built in Python, and imported in to SurrealDB for inference within the database runtime." hover />
 		</Link>
 	</Layout::Boxes>
 

@@ -28,7 +28,6 @@ layout-helm {
 			height:100vh;
 			max-height:100vh;
 			padding:50px 0 100px 0;
-			border-right:1px solid var(--border-color);
 
 			@include media(max-width-1301) {
 				top:90px;
@@ -176,7 +175,7 @@ layout-helm {
 		section {
 
 			position:relative;
-			border-top: solid 1px rgba(84,99,130,.2);
+			border-top:1px solid var(--border-color);
 
 			&:first-of-type {
 				border:none;

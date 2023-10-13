@@ -4,23 +4,21 @@
 	<meta name="description" content="Download images and videos for use in press releases, blog articles, or social posts. For media inquires and more information, email us at info@surrealdb.com.">
 </Meta::Tags>
 
-<Layout::Gap small />
-
-<Layout::Text text-l>
-	<h1><img inline src="/static/img/text.svg" alt="SurrealDB" /> media</h1>
-	<p>For media inquires and more information, email us at <a href="mailto:info@surrealdb.com">info@surrealdb.com</a>.</p>
-	<p>
-		<Link @link="#colours">Colours</Link>
-		&bull;
-		<Link @link="#logosandicons">Logos and icons</Link>
-		&bull;
-		<Link @link="#poweredby">'Powered by' badges</Link>
-		&bull;
-		<Link @link="#builton">'Built on' badges</Link>
-		&bull;
-		<Link @link="#animation">Animated logos</Link>
-	</p>
-</Layout::Text>
+<Layout::Hero media>
+	<Layout::Text text-l>
+		<h1>Media</h1>
+		<h2>For media inquires and more information, email us at <a href="mailto:info@surrealdb.com">info@surrealdb.com</a>.</h2>
+		<p>
+			<Link @link="#colours">Colours</Link>
+			&bull;
+			<Link @link="#logosandicons">Logos and icons</Link>
+			&bull;
+			<Link @link="#poweredby">'Powered by' badges</Link>
+			&bull;
+			<Link @link="#builton">'Built on' badges</Link>
+		</p>
+	</Layout::Text>
+</Layout::Hero>
 
 <Layout::Gap mini />
 
@@ -49,15 +47,11 @@
 		</block>
 		<block>
 			<div curved bg-1a202d w-100 h-60px m-b-20></div>
-			<h4 flex row middle>#1a202d</h4>
+			<h4 flex row middle>#151517</h4>
 		</block>
 		<block>
 			<div curved bg-272e3c w-100 h-60px m-b-20></div>
-			<h4 flex row middle>#272e3c</h4>
-		</block>
-		<block>
-			<div curved bg-989cad w-100 h-60px m-b-20></div>
-			<h4 flex row middle>#989cad</h4>
+			<h4 flex row middle>#f5f5f7</h4>
 		</block>
 	</Layout::Blocks>
 
@@ -185,45 +179,6 @@
 			</a>
 			<a m-t-10 m-r-10 href="/static/img/assets/builton/dark.png" download="builton-surrealdb-dark">
 				<i class="fal fa-cloud-download"></i> PNG
-			</a>
-		</block>
-	</Layout::Blocks>
-
-	<Layout::Gap small />
-
-</section>
-
-<section id="animation">
-
-	<Layout::Gap small />
-
-	<Layout::Text text-l>
-		<h2>Animated logos</h2>
-	</Layout::Text>
-
-	<Layout::Gap mini />
-
-	<Layout::Blocks cols-3-to-2-to-1 as |block|>
-		<block>
-			<p>Animated logo with sound</p>
-			<grid p-30 flex row center middle>
-				<video height="200" controls poster="/static/img/assets/animation/soundbite.png" alt="SurrealDB media video 1">
-					<source src="https://surrealdb.s3.amazonaws.com/surrealdb-logo-soundbite.mp4" type="video/mp4" />
-				</video>
-			</grid>
-			<a m-t-10 m-r-10 href="https://surrealdb.s3.amazonaws.com/surrealdb-logo-soundbite.mp4" download="surrealdb-logo-soundbite">
-				<i class="fal fa-cloud-download"></i> MP4 (H.264)
-			</a>
-		</block>
-		<block>
-			<p>Animated logo without sound</p>
-			<grid p-30 flex row center middle>
-				<video height="200" controls poster="/static/img/assets/animation/animation.png" alt="SurrealDB media video 2">
-					<source src="https://surrealdb.s3.amazonaws.com/surrealdb-logo-animation.mov" type="video/mov" />
-				</video>
-			</grid>
-			<a m-t-10 m-r-10 href="https://surrealdb.s3.amazonaws.com/surrealdb-logo-animation.mov" download="surrealdb-logo-animation">
-				<i class="fal fa-cloud-download"></i> MOV (Apple ProRes)
 			</a>
 		</block>
 	</Layout::Blocks>

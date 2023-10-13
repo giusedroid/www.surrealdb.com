@@ -19,4 +19,4 @@ Add functionality to generate different Record IDs: CREATE person:rand(), person
 Add SurrealQL functions to JavaScript runtime
 Add CLI option to disable server banner
 Add current INSERT value as parameter value to ON DUPLICATE KEY clause (accessed using $input)
-Add support for `FETCH` cluases in SQL `RETURN` statements
+Add support for `FETCH` clauses in SQL `RETURN` statements

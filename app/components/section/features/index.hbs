@@ -38,41 +38,84 @@
 					</h4>
 					<p>
 						SurrealDB can be configured to run in a single-node memory-only runtime, enabling
-						high-performance querying and data analysis. This is suitable for data which fits inside the
-						memory of a single machine.
+						multi-reader, single-writer querying and data analysis. This is suitable for testing and
+						for data which fits inside the memory capacity of a single machine.
 					</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						Single-node (on-disk)
+						Web browser (<Link @link="https://web.dev/indexeddb/">IndexedDB</Link>)
 						<l green>Complete</l>
 					</h4>
 					<p>
-						When data sizes are greater than the available memory on a single machine, on-disk storage can be
-						used to enable larger data storage capabilities. Recently accessed data resides in memory with
-						caching.
+						When wanting to use SurrealDB from within the browser, the WebAssembly library has support for
+						connecting to a remote database over HTTP or WebSockets, or running with data persistence on
+						top of <Link @link="https://web.dev/indexeddb/">IndexedDB</Link> in the browser.
 					</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						Distributed (using TiKV)
+						Single-node (<Link @link="https://rocksdb.org">RocksDB</Link>)
+						<l green>Complete</l>
+					</h4>
+					<p>
+						When wanting persistent data storage on a single-node, on-disk storage can be
+						used to enable larger data storage capabilities. <Link @link="https://rocksdb.org">RocksDB</Link>
+						is optimised for high performance and fast storage on SSDs.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Single-node (<Link @link="https://www.speedb.io/">SpeeDB</Link>)
+						<l green>Complete</l>
+					</h4>
+					<p>
+						As an alternative to RocksDB, when running on a single machine, <Link @link="https://www.speedb.io/">SpeeDB</Link>
+						can be used for greater resource efficiency, and improved storage performance on disk.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Single-node (SurrealKV)
+						<l purple>Planned 1.X</l>
+					</h4>
+					<p>
+						Our own native storage engine, written in Rust will support multiple concurrent writers and readers.
+						SurrealKV will enable versioned queries over time, enabling immutable data querying, data change auditing,
+						historic aggregate query analysis, and versioned queries on the graph.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Distributed (SurrealKV)
+						<l pink>Future</l>
+					</h4>
+					<p>
+						For highly-available setups, SurrealKV will support the ability to horizontally scale to multiple terabytes
+						of data. As a distributed cluster SurrealKV will enable versioned queries over time, enabling immutable data
+						querying, data change auditing, historic aggregate query analysis, and versioned queries on the graph.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Distributed (<Link @link="https://www.foundationdb.org/">FoundationDB</Link>)
+						<l green>Complete</l>
+					</h4>
+					<p>
+						For highly-available and highly-scalable setups, SurrealDB can be run on top of a
+						<Link @link="https://www.foundationdb.org/">FoundationDB</Link> cluster, with the
+						ability to horizontally scale to multiple terabytes of data.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Distributed (<Link @link="https://tikv.org">TiKV</Link>)
 						<l green>Complete</l>
 					</h4>
 					<p>
 						For highly-available and highly-scalable setups, SurrealDB can be run on top of a
 						<Link @link="https://tikv.org">TiKV</Link> cluster, with the
-						ability to horizontally scale to <code>100+</code> terabytes of data.
-					</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						Distributed (using SurrealKV)
-						<l pink>Future</l>
-					</h4>
-					<p>
-						For highly-available and highly-scalable setups, SurrealDB can be run on top of a
-						SurrealKV cluster, with the
-						ability to horizontally scale to <code>100+</code> terabytes of data.
+						ability to horizontally scale to multiple terabytes of data.
 					</p>
 				</block>
 			</Layout::Blocks>
@@ -184,24 +227,6 @@
 
 			<Layout::Gap mini />
 
-			<Layout::Blocks cols-1 as |block|>
-				<block>
-					<h4 flex row middle>
-						Global parameters
-						<l green>Complete</l>
-					</h4>
-					<p>
-						Global parameters can be used to store values across the database, which are then accessible to
-						all queries.
-					</p>
-				</block>
-				<block>
-					<Code min-h-100 @name="features/platform/params.surql" />
-				</block>
-			</Layout::Blocks>
-
-			<Layout::Gap mini />
-
 			<Layout::Blocks cols-2-to-1 as |block|>
 				<block>
 					<h4 flex row middle>
@@ -231,10 +256,29 @@
 					</h4>
 					<p>
 						The ability to define full-text indexes, with functionality to search through the full-text index
-						on a table. Searches support field queries, configurable text analyzers, relevance matching, highlighting with offsets extraction.</p>
+						on a table. Searches support field queries, configurable text analyzers, relevance matching, highlighting with offsets extraction.
+					</p>
 				</block>
 				<block>
 					<Code @name="features/platform/fulltext.surql" />
+				</block>
+			</Layout::Blocks>
+
+			<Layout::Gap mini />
+
+			<Layout::Blocks cols-1 as |block|>
+				<block>
+					<h4 flex row middle>
+						Vector embedding indexing
+						<l yellow>Beta</l>
+					</h4>
+					<p>
+						The ability to define full-text indexes, with functionality to search through the full-text index
+						on a table. Searches support field queries, configurable text analyzers, relevance matching, highlighting with offsets extraction.
+					</p>
+				</block>
+				<block>
+					<Code @name="features/platform/vectors.surql" />
 				</block>
 			</Layout::Blocks>
 
@@ -264,7 +308,7 @@
 				<block>
 					<h4 flex row middle>
 						Live queries and record changes
-						<l purple>Planned 1.0</l>
+						<l green>Complete</l>
 					</h4>
 					<p>
 						Live SQL queries allow for advanced filtering of the changes to specific documents, documents
@@ -275,6 +319,24 @@
 				</block>
 				<block>
 					<Code @name="features/platform/live.surql" />
+				</block>
+			</Layout::Blocks>
+
+			<Layout::Gap mini />
+
+			<Layout::Blocks cols-1 as |block|>
+				<block>
+					<h4 flex row middle>
+						Global parameters
+						<l green>Complete</l>
+					</h4>
+					<p>
+						Global parameters can be used to store values across the database, which are then accessible to
+						all queries.
+					</p>
+				</block>
+				<block>
+					<Code min-h-100 @name="features/platform/params.surql" />
 				</block>
 			</Layout::Blocks>
 
@@ -296,8 +358,6 @@
 					<Code min-h-100 @name="features/platform/functions.surql" />
 				</block>
 			</Layout::Blocks>
-
-			<Layout::Gap mini />
 
 			<Layout::Gap small />
 
@@ -431,6 +491,25 @@
 				</block>
 			</Layout::Blocks>
 
+			<Layout::Gap mini />
+
+			<Layout::Blocks cols-1 as |block|>
+				<block>
+					<h4 flex row middle>
+						Strict typing
+						<l green>Complete</l>
+					</h4>
+					<p>
+						With a strict typing system, SurrealQL ensures that document structures are easier to understand, and any data
+						conforms to the defined record schema. Advanced types for arrays and record links, ensure that related data
+						works in the same way as basic types.
+					</p>
+				</block>
+				<block>
+					<Code min-h-100 @name="features/data/typing.surql" />
+				</block>
+			</Layout::Blocks>
+
 			<Layout::Gap small />
 
 		</section>
@@ -493,6 +572,35 @@
 				</block>
 				<block>
 					<Code @name="features/surrealql/insert.surql" />
+				</block>
+			</Layout::Blocks>
+
+			<Layout::Gap mini />
+
+			<Layout::Blocks cols-2-to-1 as |block|>
+				<block>
+					<h4 flex row middle>
+						FOR statements
+						<l green>Complete</l>
+					</h4>
+					<p>
+						<code>FOR</code> statements enable simplified iteration over data, or for advanced logic when dealing with nested arrays or recursive functions, within code blocks or custom functions.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						THROW statements
+						<l green>Complete</l>
+					</h4>
+					<p>
+						The <code>THROW</code> statement statement can be used to return custom error types, which allow for building advanced programming and business logic right within the database and authentication engine.
+					</p>
+				</block>
+				<block>
+					<Code @name="features/surrealql/for.surql" />
+				</block>
+				<block>
+					<Code @name="features/surrealql/throw.surql" />
 				</block>
 			</Layout::Blocks>
 
@@ -645,29 +753,6 @@
 
 			<Layout::Gap mini />
 
-			<Layout::Blocks cols-2-to-1 as |block|>
-				<block>
-					<h4 flex row middle>
-						IDE language support
-						<l pink>Future</l>
-					</h4>
-					<p>SurrealDB aims to include official language highlighting packages for Atom, Sublime Text, Visual
-						Studio Code, and Vim.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						Language Server Protocol
-						<l pink>Future</l>
-					</h4>
-					<p>
-						SurrealDB will support the Language Server Protocol which will help with code and query
-						completion, and error highlighting for SurrealQL.
-					</p>
-				</block>
-			</Layout::Blocks>
-
-			<Layout::Gap mini />
-
 			<Layout::Blocks cols-1-2-to-1 as |block|>
 				<block>
 					<h4 flex row middle>
@@ -723,6 +808,20 @@
 				</block>
 				<block>
 					<h4 flex row middle>
+						Parsing functions
+						<l green>Complete</l>
+					</h4>
+					<p>Parsing functions can be used for parsing and extracting individual parts or urls, emails, and domains.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Rand functions
+						<l green>Complete</l>
+					</h4>
+					<p>Random generation functions can be used to generate random values, numbers, strings, UUIDs, and datetimes.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
 						Search functions
 						<l green>Complete</l>
 					</h4>
@@ -737,23 +836,10 @@
 				</block>
 				<block>
 					<h4 flex row middle>
-						Parsing functions
+						Type functions
 						<l green>Complete</l>
 					</h4>
-					<p>
-						Parsing functions can be used for parsing and extracting individual parts or urls, emails, and
-						domains.
-					</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						Rand functions
-						<l green>Complete</l>
-					</h4>
-					<p>
-						Random generation functions can be used to generate random values, numbers, strings, UUIDs, and
-						datetimes.
-					</p>
+					<p>Type checking functions can be used to check the type of a value, which is useful in custom function definitions.</p>
 				</block>
 				<block>
 					<h4 flex row middle>
@@ -1124,11 +1210,36 @@
 
 			<Layout::Line />
 
+			<Layout::Blocks cols-2-to-1 as |block|>
+				<block>
+					<h4 flex row middle>
+						IDE language support
+						<l pink>Future</l>
+					</h4>
+					<p>
+						SurrealDB aims to include official language highlighting packages for Atom, Sublime Text, Visual
+						Studio Code, and Vim.
+					</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						Language Server Protocol
+						<l pink>Future</l>
+					</h4>
+					<p>
+						SurrealDB will support the Language Server Protocol which will help with code and query
+						completion, and error highlighting for SurrealQL.
+					</p>
+				</block>
+			</Layout::Blocks>
+
+			<Layout::Line />
+
 			<Layout::Blocks cols-1 as |block|>
 				<block>
 					<h4 flex row middle>
 						User interface
-						<l pink>Future</l>
+						<l purple>Planned 1.X</l>
 					</h4>
 					<p>
 						An easy-to-use interface with support for table-based views, SurrealQL querying, embedded object
@@ -1155,7 +1266,7 @@
 					<h4 flex row middle>
 						<i class="fab fa-chrome font-30 m-r-10"></i>
 						Web app
-						<l pink>Future</l>
+						<l purple>Planned 1.X</l>
 					</h4>
 					<p>
 						The interface will be available as a web app, installed on every instance of SurrealDB, and can
@@ -1166,7 +1277,7 @@
 					<h4 flex row middle>
 						<i class="fab fa-apple font-30 m-r-10"></i>
 						macOS
-						<l pink>Future</l>
+						<l purple>Planned 1.X</l>
 					</h4>
 					<p>
 						The interface will be available as a desktop application for macOS powered by Tauri. This can be
@@ -1177,7 +1288,7 @@
 					<h4 flex row middle>
 						<i class="fab fa-windows font-30 m-r-10"></i>
 						Windows
-						<l pink>Future</l>
+						<l purple>Planned 1.X</l>
 					</h4>
 					<p>
 						The interface will be available as a desktop application for Windows powered by Tauri. This can
@@ -1195,7 +1306,7 @@
 			<Layout::Gap small />
 
 			<Layout::Text text-l>
-				<h3>Libraries</h3>
+				<h3>SDKs</h3>
 			</Layout::Text>
 
 			<Layout::Gap mini />
@@ -1203,107 +1314,133 @@
 			<Layout::Blocks cols-3-to-1 as |block|>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-js-square font-30 m-r-10"></i>
-						Javascript
-						<l green>Available</l>
-					</h4>
-					<p>A real-time, fast SDK for Javascript with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						<i class="fab fa-golang font-30 m-r-10"></i>
-						Golang
-						<l green>Available</l>
-					</h4>
-					<p>A real-time, fast SDK for Golang with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						Deno
-						<l green>Available</l>
-					</h4>
-					<p>A real-time, fast SDK for Deno with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						<i class="fab fa-python font-30 m-r-10"></i>
-						Python
-						<l green>Available</l>
-					</h4>
-					<p>A real-time, fast SDK for Python with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						<i class="fab fa-java font-30 m-r-10"></i>
-						Java
-						<l green>Available</l>
-					</h4>
-					<p>A real-time, fast SDK for Java with bi-directional communication.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						<i class="fab fa-rust font-30 m-r-10"></i>
+						<Devicon @size="35" @type="rust" />
 						Rust
-						<l purple>Beta</l>
+						<l green>Available</l>
 					</h4>
 					<p>
-						A real-time, fast <code>async</code>-friendly SDK for Rust with bi-directional
-						communication over WebSockets.
+						An async-friendly SDK for Rust with bi-directional, binary communication over WebSockets or HTTP.
 					</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-js-square font-30 m-r-10"></i>
+						<Devicon @size="35" @type="golang" />
+						Golang
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Golang with bi-directional communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="python" />
+						Python
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Python with bi-directional, binary communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="javascript" />
+						Javascript
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Javascript with bi-directional, binary communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="nodejs" />
+						Node.js
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Javascript with bi-directional, binary communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="deno" />
+						Deno
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Deno with bi-directional, binary communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="webassembly" />
 						WebAssembly
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Javascript with bi-directional, binary communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="java" />
+						Java
+						<l green>Available</l>
+					</h4>
+					<p>An SDK for Java with bi-directional communication over WebSockets or HTTP.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="dotnet" />
+						.NET
 						<l purple>Beta</l>
 					</h4>
-					<p>A real-time, fast SDK for Javascript with bi-directional communication over WebSockets.</p>
+					<p>An SDK for .NET with bi-directional communication over WebSockets or HTTP.</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-node-js font-30 m-r-10"></i>
-						Node.js
-						<l pink>Future</l>
-					</h4>
-					<p>A real-time, fast SDK for Javascript with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						.NET
-						<l pink>Future</l>
-					</h4>
-					<p>A real-time, fast SDK for .NET with bi-directional communication.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						<i class="fas fa-square-c font-30 m-r-10"></i>
+						<Devicon @size="35" @type="c" />
 						C
 						<l pink>Future</l>
 					</h4>
-					<p>A SDK for C, with support for data modification and querying.</p>
+					<p>An SDK for C with bi-directional, binary communication over WebSockets or HTTP.</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-php font-30 m-r-10"></i>
+						<Devicon @size="35" @type="php" />
 						PHP
 						<l pink>Future</l>
 					</h4>
-					<p>A SDK for PHP, with support for data modification and querying.</p>
+					<p>An SDK for PHP with bi-directional, binary communication over WebSockets or HTTP.</p>
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-swift font-30 m-r-10"></i>
+						<Devicon @size="35" @type="swift" />
 						Swift
 						<l pink>Future</l>
 					</h4>
-					<p>A real-time, fast SDK for Swift with bi-directional communication.</p>
+					<p>An SDK for Swift with bi-directional communication over WebSockets.</p>
 				</block>
 				<block>
 					<h4 flex row middle>
+						<Devicon @size="35" @type="dart" />
+						Dart
+						<l pink>Future</l>
+					</h4>
+					<p>An SDK for Dart with bi-directional communication over WebSockets.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="r" />
+						R
+						<l pink>Future</l>
+					</h4>
+					<p>An SDK for R with bi-directional communication over WebSockets.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="ruby" />
+						Ruby
+						<l pink>Future</l>
+					</h4>
+					<p>An SDK for Dart with bi-directional communication over WebSockets.</p>
+				</block>
+				<block>
+					<h4 flex row middle>
+						<Devicon @size="35" @type="erlang" />
 						Erlang
 						<l pink>Future</l>
 					</h4>
-					<p>A real-time, fast SDK for Erlang with bi-directional communication.</p>
+					<p>An SDK for Erlang with bi-directional communication over WebSockets.</p>
 				</block>
 			</Layout::Blocks>
 
@@ -1312,7 +1449,7 @@
 			<Layout::Blocks cols-3-to-1 as |block|>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-ember font-30 m-r-10"></i>
+						<Devicon @size="35" @type="emberjs" />
 						Ember.js
 						<l pink>Future</l>
 					</h4>
@@ -1323,7 +1460,7 @@
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-react font-30 m-r-10"></i>
+						<Devicon @size="35" @type="reactjs" />
 						React.js
 						<l pink>Future</l>
 					</h4>
@@ -1334,7 +1471,7 @@
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-vuejs font-30 m-r-10"></i>
+						<Devicon @size="35" @type="vuejs" />
 						Vue.js
 						<l pink>Future</l>
 					</h4>
@@ -1345,6 +1482,7 @@
 				</block>
 				<block>
 					<h4 flex row middle>
+						<Devicon @size="35" @type="nextjs" />
 						Next.js
 						<l pink>Future</l>
 					</h4>
@@ -1355,7 +1493,7 @@
 				</block>
 				<block>
 					<h4 flex row middle>
-						<i class="fab fa-angular font-30 m-r-10"></i>
+						<Devicon @size="35" @type="angular" />
 						Angular
 						<l pink>Future</l>
 					</h4>
@@ -1366,24 +1504,11 @@
 				</block>
 				<block>
 					<h4 flex row middle>
-						Apollo GraphQL
-						<l pink>Future</l>
-					</h4>
-					<p>A real-time, live-updating SDK for Apollo GraphQL.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
-						Dart
-						<l pink>Future</l>
-					</h4>
-					<p>A real-time, fast SDK for Dart with bi-directional communication over WebSockets.</p>
-				</block>
-				<block>
-					<h4 flex row middle>
+						<Devicon @size="35" @type="flutter" />
 						Flutter
 						<l pink>Future</l>
 					</h4>
-					<p>A real-time, fast SDK for Flutter with bi-directional communication over WebSockets.</p>
+					<p>An SDK for Flutter with bi-directional communication over WebSockets.</p>
 				</block>
 			</Layout::Blocks>
 
@@ -1391,45 +1516,7 @@
 
 		</section>
 
-	<Layout::Line />
-
-		<Layout::Blocks cols-1 as |block|>
-				<block>
-					<h4 flex row middle>
-						Surreal ML
-						<l purple>Beta</l>
-					</h4>
-					<p>
-						SurrealML is essentially a feature that enables users to store trained machine learning models in a `surml` format so the model can be run in either python or rust. Users can also upload these files to a SurrealDB node so they can run their machine learning models on the server.
-					</p>
-
-					<h5> Saving a trained model</h5>
-					<p>
-						Below is how we add meta data to our trained model so this information is available when opening a model:
-					</p>
-					<block>
-					<Code @name="features/surrealML/trainedmodel.py" />
-				</block>
-				</block>
-					<block>
-						<p>it must be noted that all this meta data gets automatically used when calling the <code>buffered_compute</code>:</p>
-					<Code @name="features/surrealML/buffered_compute.py" />
-				</block>
-				<p> In this example, the field is automatically mapped to the right position for the input tensor, and normalisations (if the normalisation is provided), are automatically applied to the input values, reducing errors of implementation of the models when distributed or deployed. </p>
-
-				<block>
-						<h5>Uploading models to SurrealDB</h5>
-						<p> Also, we have included the to and from bytes for our surml files, so they can be sent over networks as seen in the following example where we upload our model to the surrealdb database so it can be executed on the database:</p>
-
-							<block>
-						<p>it must be noted that all this meta data gets automatically used when calling the <code>buffered_compute</code>:</p>
-					<Code @name="features/surrealML/uploading.py" />
-				</block>
-				</block>
-
-			</Layout::Blocks>
-
-			<Layout::Gap mini />
+		<Layout::Gap mini />
 
 	</Layout::Helm::Main>
 

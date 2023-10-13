@@ -873,7 +873,7 @@
 			<Code @name="docs-integrations-http-signin.bash" text="Command line">
 				curl -X POST \
 					 -H "Accept: application/json" \
-					 -d '{"ns":"test","db":"test","sc":"user_scope","username":"john.doe","password":"123456"}' \
+					 -d '{"ns":"test","db":"test","sc":"user_scope","user":"john.doe","pass":"123456"}' \
 					 http://localhost:8000/signin
 			</Code>
 			<Code @name="docs-integrations-http-signin.json" text="Output">
@@ -889,7 +889,7 @@
 			<Code @name="docs-integrations-http-signin-namespace.bash" text="Command line">
 				curl -X POST \
 					 -H "Accept: application/json" \
-					 -d '{"ns":"test","username":"john.doe","password":"123456"}' \
+					 -d '{"ns":"test","user":"john.doe","pass":"123456"}' \
 					 http://localhost:8000/signin
 			</Code>
 			<Code @name="docs-integrations-http-signin.json" text="Output">
@@ -905,7 +905,7 @@
 			<Code @name="docs-integrations-http-signin-root.bash" text="Command line">
 				curl -X POST \
 					 -H "Accept: application/json" \
-					 -d '{"username":"john.doe","password":"123456"}' \
+					 -d '{"user":"john.doe","pass":"123456"}' \
 					 http://localhost:8000/signin
 			</Code>
 			<Code @name="docs-integrations-http-signin.json" text="Output">

@@ -1,5 +1,25 @@
 <layout-testimonials ...attributes>
+
+	<Layout::Gap large />
+
+	<Layout::Text text-l>
+		<h1>Loved by developers</h1>
+	</Layout::Text>
+
+	<Layout::Gap small />
+
+	<content>
+		<h5>'It's fast, small, can run on browser, edge and cloud.  It can handle large data.  It can run in-memory like redis or disk like sqlite and it can run multi-cluster.   It can sync between cloud and edge.  And to top of it off, it can also run as a graphdb. It's interesting.'</h5>
+		<h4>Chris Hay, CTO at IBM iX</h4>
+		<img src="/static/img/logos/ibmix.svg" width={{60}} alt>
+	</content>
+
+	<Layout::Gap small />
+
 	<content route={{route-name}}>
 		{{yield}}
 	</content>
+
+	<Layout::Gap large />
+
 </layout-testimonials>

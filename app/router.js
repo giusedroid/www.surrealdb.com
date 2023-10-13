@@ -23,6 +23,7 @@ Router.map(function () {
 	this.route('cf');
 	this.route('CF');
 	this.route('kv');
+	this.route('media');
 	this.route('products');
 	this.route('opensource');
 	this.route('releases');

@@ -1,0 +1,1 @@
+var db = SurrealDbWssClient.New("cloud.surrealdb.com");

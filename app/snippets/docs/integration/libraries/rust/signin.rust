@@ -7,7 +7,7 @@ struct Credentials<'a> {
     pass: &'a str,
 }
 
-let token = db.signin(Scope {
+let jwt = db.signin(Scope {
     namespace: "test",
     database: "test",
     scope: "user",
@@ -16,3 +16,6 @@ let token = db.signin(Scope {
         pass: "123456",
     },
 }).await?;
+
+// ⚠️: It is important to note that the token should be handled securely and protected from unauthorized access.
+let token = jwt.as_insecure_token();

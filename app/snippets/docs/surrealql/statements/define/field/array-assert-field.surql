@@ -1,37 +1,43 @@
--- An ACL should be defined for any kind of resource (any record)
+-- An ACL can be applied to any kind of resource (record)
 DEFINE FIELD resource ON TABLE acl TYPE record;
--- An ACL should be defined for a user
+-- We associate the acl with a user using record<user>
 DEFINE FIELD user ON TABLE acl TYPE record<user>;
 
--- A user can have multiple permissions on an ACL
+-- The permissions for the user+resource will be stored in an array.
 DEFINE FIELD permissions ON TABLE acl TYPE array
-  -- The array must not be empty because at least one permission is required
+  -- The array must not be empty because at least one permission is required to make a valid ACL
   ASSERT array::len($value) > 0;
 
--- Assigned permissions are identified by strings
+-- Assigned permissions are identified by specific string values.
 DEFINE FIELD permissions.* ON TABLE acl TYPE string
   -- Allow only these values in the array
   ASSERT $value INSIDE ["create", "read", "write", "delete"];
 
 -- SEE IT IN ACTION
--- 1: Add a user
+-- 1: Add users
 CREATE user:tobie SET firstName = 'Tobie', lastName = 'Hitchcock',
   email = 'Tobie.Hitchcock@surrealdb.com';
 CREATE user:abc SET firstName = 'A', lastName = 'B',
   email = 'c@d.com';
--- 2: Create a resource
-CREATE resource:write_to_some_queue SET
-  name = "some messaging queue", type = ["read", "write"];
--- 3: Associate with ACL
-CREATE acl SET user = user:tobie, resource = resource:write_to_some_queue, permissions = ["allow"];
-CREATE acl SET user = user:abc, resource = resource:write_to_some_queue, permissions = ["deny"];
+CREATE user:efg SET firstName = 'E', lastName = 'F',
+  email = 'g@h.com';
 
--- Assert failure examples
+-- 2: Create a resource
+CREATE document:SurrealDB_whitepaper SET
+  name = "some messaging queue";
+
+-- 3: Associate with ACL
+CREATE acl SET user = user:tobie, resource = document:SurrealDB_whitepaper, permissions = ["create", "write", "read"];
+CREATE acl SET user = user:abc, resource = document:SurrealDB_whitepaper, permissions = ["read", "delete"];
+
+-- Test Asserts using failure examples
 -- A: Create ACL without permissions field
-CREATE acl SET user = user:tobie,
+CREATE acl SET
+  user = user:efg,
   permissions = [], # FAIL - permissions must not be empty
-  resource = resource:write_to_some_queue;
--- B: Create resource with incorrect type
-CREATE resource:random_some_database SET
-  name = "some database",
-  type = ["all"]; # FAIL - This is not a part of the array
+  resource = document:SurrealDB_whitepaper;
+-- B: Create acl with invalid permisson
+CREATE acl SET
+  user = user:efg,
+  permissions = ["all"], # FAIL - This value is not allowed in the array
+  resource = document:SurrealDB_whitepaper;
